@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace GoogleCast.Models.Media
 {
@@ -18,7 +19,7 @@ namespace GoogleCast.Models.Media
         /// Gets or sets the playback rate
         /// </summary>
         [DataMember(Name = "playbackRate")]
-        public int PlaybackRate { get; set; }
+        public double PlaybackRate { get; set; }
 
         /// <summary>
         /// Gets or sets the player state
@@ -73,5 +74,11 @@ namespace GoogleCast.Models.Media
         /// </summary>
         [DataMember(Name = "repeatMode")]
         public string RepeatMode { get; set; }
+
+        /// <summary>
+        /// Gets or sets the queue items
+        /// </summary>
+        [DataMember(Name = "items")]
+        public IEnumerable<QueueItem> QueueItems { get; set; }
     }
 }

@@ -40,5 +40,17 @@ namespace GoogleCast.Models.Media
         /// </summary>
         [DataMember(Name = "startTime", EmitDefaultValue = false)]
         public int? StartTime { get; set; }
+
+        /// <summary>
+        /// Gets or sets the seconds from the beginning of the media to start playback
+        /// </summary>
+        [DataMember(Name = "preloadTime", EmitDefaultValue = false)]
+        public int? PreloadTime { get; set; }
+
+        /// <summary>
+        /// Gets or sets the ordered number of the queue item
+        /// </summary>
+        [DataMember(Name = "orderId", EmitDefaultValue = false)]
+        public int? OrderId { get; set; }
     }
 }

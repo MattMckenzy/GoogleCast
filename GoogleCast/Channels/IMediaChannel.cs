@@ -1,4 +1,5 @@
 ﻿using GoogleCast.Models.Media;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -9,6 +10,16 @@ namespace GoogleCast.Channels
     /// </summary>
     public interface IMediaChannel : IStatusChannel<IEnumerable<MediaStatus>>, IApplicationChannel
     {
+        /// <summary>
+        /// Raised when the status has changed
+        /// </summary>
+        event EventHandler QueueStatusChanged;
+
+        /// <summary>
+        /// Gets the status
+        /// </summary>
+        QueueStatus QueueStatus { get; }
+
         /// <summary>
         /// Retrieves the media status
         /// </summary>
@@ -39,6 +50,48 @@ namespace GoogleCast.Channels
         /// <param name="queueItems">items to load</param>
         /// <returns>media status</returns>
         Task<MediaStatus> QueueLoadAsync(RepeatMode repeatMode, params QueueItem[] queueItems);
+
+        /// <summary>
+        /// Inserts queue items into the queue
+        /// </summary>
+        /// <param name="queueItems">items to insert</param>
+        /// <returns>media status</returns>
+        Task<MediaStatus> QueueInsertAsync(QueueItem[] queueItems);
+
+        /// <summary>
+        /// Removes queue items from the queue
+        /// </summary>
+        /// <param name="queueItemIds">item ids to remove</param>
+        /// <returns>media status</returns>
+        Task<MediaStatus> QueueRemoveAsync(int[] queueItemIds);
+
+        /// <summary>
+        /// Updates the queue with new currently playing media and shuffle
+        /// </summary>
+        /// <param name="currentItemId">item id to set currently playing media</param>
+        /// <param name="shuffle">bool </param>
+        /// <returns>media status</returns>
+        Task<MediaStatus> QueueUpdateAsync(int? currentItemId = null, bool? shuffle = null);
+
+        /// <summary>
+        /// Reorders queue items in the queue
+        /// </summary>
+        /// <param name="queueItemIds">item ids to reorder</param>
+        /// <returns>media status</returns>
+        Task<MediaStatus> QueueReorderAsync(int[] queueItemIds);
+
+        /// <summary>
+        /// Get the given item ids' info
+        /// </summary>
+        /// <param name="itemIds">item ids to retrieve info</param>
+        /// <returns>media status</returns>
+        Task<QueueItem[]> QueueGetItemsMessage(int[] itemIds);
+
+        /// <summary>
+        /// Get all currently queued item ids
+        /// </summary>
+        /// <returns>int array</returns>
+        Task<int[]> QueueGetItemIdsMessage();
 
         /// <summary>
         /// Edits tracks info
@@ -73,5 +126,24 @@ namespace GoogleCast.Channels
         /// <param name="seconds">time in seconds</param>
         /// <returns>media status</returns>
         Task<MediaStatus> SeekAsync(double seconds);
+
+        /// <summary>
+        /// Sets the current playback rate of the stream
+        /// </summary>
+        /// <param name="playbackRate">playback rate</param>
+        /// <returns>media status</returns>
+        Task<MediaStatus> SetPlaybackRateMessage(double playbackRate);        
+
+        /// <summary>
+        /// Skips to the next media in the queue
+        /// </summary>
+        /// <returns>media status</returns>
+        Task<MediaStatus> NextAsync();
+
+        /// <summary>
+        /// Skips to the previous media in the queue
+        /// </summary>
+        /// <returns>media status</returns>
+        Task<MediaStatus> PreviousAsync();
     }
 }
