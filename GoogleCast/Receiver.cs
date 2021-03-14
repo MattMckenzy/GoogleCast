@@ -8,6 +8,11 @@ namespace GoogleCast
     public class Receiver : IReceiver
     {
         /// <summary>
+        /// Gets or sets the receiver identifier
+        /// </summary>
+        public string Id { get; set; }
+
+        /// <summary>
         /// Gets or sets the friendly name
         /// </summary>
         public string FriendlyName { get; set; }
