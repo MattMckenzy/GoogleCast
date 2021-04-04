@@ -27,11 +27,9 @@ namespace GoogleCast
         /// <returns>a JSON byte array</returns>
         public static byte[] Serialize(object obj)
         {
-            using (var ms = new MemoryStream())
-            {
-                new DataContractJsonSerializer(obj.GetType()).WriteObject(ms, obj);
-                return ms.ToArray();
-            }
+            using var ms = new MemoryStream();
+            new DataContractJsonSerializer(obj.GetType()).WriteObject(ms, obj);
+            return ms.ToArray();
         }
 
         /// <summary>
@@ -77,10 +75,8 @@ namespace GoogleCast
         {
             if (str != null)
             {
-                using (var ms = new MemoryStream(str))
-                {
-                    return new DataContractJsonSerializer(type).ReadObject(ms);
-                }
+                using var ms = new MemoryStream(str);
+                return new DataContractJsonSerializer(type).ReadObject(ms);
             }
 
             return null;

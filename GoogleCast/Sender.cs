@@ -91,7 +91,7 @@ namespace GoogleCast
             }
         }
 
-        private void Dispose(IDisposable disposable, Action action)
+        private static void Dispose(IDisposable disposable, Action action)
         {
             if (disposable != null)
             {
@@ -279,7 +279,7 @@ namespace GoogleCast
             }
         }
 
-        private CastMessage CreateCastMessage(string ns, string destinationId)
+        private static CastMessage CreateCastMessage(string ns, string destinationId)
         {
             return new CastMessage()
             {
@@ -306,7 +306,7 @@ namespace GoogleCast
         /// <returns>receiver status</returns>
         public async Task<ReceiverStatus> LaunchAsync(IApplicationChannel applicationChannel)
         {
-            return await LaunchAsync(applicationChannel.ApplicationId);
+            return await LaunchAsync(applicationChannel.DefaultApplicationId);
         }
 
         /// <summary>

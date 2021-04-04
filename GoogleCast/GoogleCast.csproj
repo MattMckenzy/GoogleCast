@@ -1,51 +1,52 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup Label="Globals">
-    <SccProjectName>%24/G-Matt/GoogleCast/GoogleCast</SccProjectName>
-    <SccProvider>{4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}</SccProvider>
-    <SccAuxPath>https://mattmckenzy.visualstudio.com</SccAuxPath>
-    <SccLocalPath>.</SccLocalPath>
-  </PropertyGroup>
-
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <SignAssembly>False</SignAssembly>
     <AssemblyOriginatorKeyFile>key.pfx</AssemblyOriginatorKeyFile>
-    <Authors>Stéphane Mitermite</Authors>
-    <Company>Stéphane Mitermite</Company>
-    <Description>Implementation of the Google Cast protocol (.NET Standard 2.0 library).</Description>
-    <Copyright>Copyright © 2018 Stéphane Mitermite</Copyright>
-    <PackageLicenseUrl>https://github.com/kakone/GoogleCast/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/kakone/GoogleCast</PackageProjectUrl>
+    <Authors>MattMckenzy</Authors>
+    <Company>MattMckenzy</Company>
+    <Description>Implementation of the Google Cast protocol (.NET Standard 2.0 library). Forked and iterated from kakone/GoogleCast.</Description>
+    <Copyright></Copyright>
+    <PackageLicense>https://github.com/MattMckenzy/GoogleCast/blob/master/LICENSE</PackageLicense>
+    <PackageProject>https://github.com/MattMckenzy/GoogleCast</PackageProject>
     <PackageTags>google cast googlecast chromecast</PackageTags>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <AssemblyVersion>1.6.7.0</AssemblyVersion>
-    <FileVersion>1.6.7.0</FileVersion>
-    <Version>1.6.7</Version>
-    <PackageIconUrl>https://github.com/kakone/GoogleCast/raw/master/GoogleCast.png</PackageIconUrl>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\netstandard2.0\GoogleCast.xml</DocumentationFile>
+    <AssemblyVersion>1.7.0.0</AssemblyVersion>
+    <FileVersion>1.7.0.0</FileVersion>
+    <Version>1.7.0</Version>
+    <PackageIcon>GoogleCast.png</PackageIcon>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <RepositoryType>git</RepositoryType>
+    <NeutralLanguage>en-CA</NeutralLanguage>
+    <RepositoryUrl>https://github.com/MattMckenzy/GoogleCast</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/MattMckenzy/GoogleCast</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="cast_channel.bat" />
     <None Remove="cast_channel.proto" />
     <None Remove="cast_channel.proto.bat" />
+    <None Include="..\GoogleCast.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\LICENSE.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.1" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.1.1" />
-    <PackageReference Include="protobuf-net" Version="2.4.0" />
-    <PackageReference Include="System.Reactive" Version="4.1.1" />
-    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.5.2" />
-    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
+    <PackageReference Include="protobuf-net" Version="3.0.73" />
+    <PackageReference Include="System.Reactive" Version="5.0.0" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="5.0.0" />
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
-    <PackageReference Include="Zeroconf" Version="3.0.30" />
+    <PackageReference Include="Zeroconf" Version="3.4.2" />
   </ItemGroup>
 
 </Project>

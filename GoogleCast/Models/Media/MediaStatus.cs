@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace GoogleCast.Models.Media
@@ -43,7 +44,7 @@ namespace GoogleCast.Models.Media
         /// Gets or sets the volume
         /// </summary>
         [DataMember(Name = "volume")]
-        public Volume Volume { get; set; }
+        public Volume Volume { get; set; } = new();
 
         /// <summary>
         /// Gets or sets the idle reason
@@ -73,7 +74,13 @@ namespace GoogleCast.Models.Media
         /// Gets or sets the repeat mode
         /// </summary>
         [DataMember(Name = "repeatMode")]
-        public string RepeatMode { get; set; }
+        public string RepeatModeString { get; set; }
+
+        /// <summary>
+        /// Gets or sets the repeat mode
+        /// </summary>
+        [IgnoreDataMember]
+        public RepeatMode? RepeatMode { get { return string.IsNullOrWhiteSpace(RepeatModeString) ? null : Enum.Parse<RepeatMode>(RepeatModeString); } }
 
         /// <summary>
         /// Gets or sets the queue items

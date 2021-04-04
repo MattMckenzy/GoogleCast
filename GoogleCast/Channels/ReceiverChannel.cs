@@ -105,8 +105,8 @@ namespace GoogleCast.Channels
         public async Task<Application> EnsureConnectionAsync(string ns)
         {
             var status = await CheckStatusAsync();
-            var application = status.Applications.FirstOrDefault(a => a.Namespaces.Any(n => n.Name == ns));
-            if (!IsConnected)
+            var application = status.Applications?.FirstOrDefault(a => a.Namespaces.Any(n => n.Name == ns));
+            if (application != null && !IsConnected)
             {
                 await Sender.GetChannel<IConnectionChannel>().ConnectAsync(application.TransportId);
                 IsConnected = true;

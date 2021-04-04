@@ -22,3 +22,4 @@ namespace GoogleCast.Models.Receiver
         public Volume Volume { get; set; }
     }
 }
+ 

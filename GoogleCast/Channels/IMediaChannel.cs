@@ -41,7 +41,7 @@ namespace GoogleCast.Channels
         /// <param name="repeatMode">queue repeat mode</param>
         /// <param name="medias">media items</param>
         /// <returns>media status</returns>
-        Task<MediaStatus> QueueLoadAsync(RepeatMode repeatMode, params MediaInformation[] medias);
+        Task<MediaStatus> QueueLoadAsync(RepeatMode? repeatMode, params MediaInformation[] medias);
 
         /// <summary>
         /// Loads a queue items
@@ -49,7 +49,7 @@ namespace GoogleCast.Channels
         /// <param name="repeatMode">queue repeat mode</param>
         /// <param name="queueItems">items to load</param>
         /// <returns>media status</returns>
-        Task<MediaStatus> QueueLoadAsync(RepeatMode repeatMode, params QueueItem[] queueItems);
+        Task<MediaStatus> QueueLoadAsync(RepeatMode? repeatMode, params QueueItem[] queueItems);
 
         /// <summary>
         /// Inserts queue items into the queue
@@ -71,7 +71,7 @@ namespace GoogleCast.Channels
         /// <param name="currentItemId">item id to set currently playing media</param>
         /// <param name="shuffle">bool </param>
         /// <returns>media status</returns>
-        Task<MediaStatus> QueueUpdateAsync(int? currentItemId = null, bool? shuffle = null);
+        Task<MediaStatus> QueueUpdateAsync(int? currentItemId = null, RepeatMode? repeatMode = null, bool? shuffle = null);
 
         /// <summary>
         /// Reorders queue items in the queue

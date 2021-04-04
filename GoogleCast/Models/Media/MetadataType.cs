@@ -13,7 +13,12 @@
         /// <summary>
         /// Movie
         /// </summary>
-        Movie = 2,
+        Movie = 1,
+
+        /// <summary>
+        /// Default
+        /// </summary>
+        TvShow = 2,
 
         /// <summary>
         /// Music

@@ -18,7 +18,7 @@ namespace GoogleCast
         private Receiver CreateReceiver(IZeroconfHost host)
         {
             var service = host.Services[PROTOCOL];
-            var properties = service.Properties.First();
+            var properties = service.Properties[0];
             return new Receiver()
             {
                 Id = properties["id"],

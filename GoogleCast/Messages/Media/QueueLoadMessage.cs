@@ -21,13 +21,13 @@ namespace GoogleCast.Messages.Media
         /// Gets or sets the algorithm for selection of the next item when the current item has ended
         /// </summary>
         [IgnoreDataMember]
-        public RepeatMode RepeatMode { get; set; }
+        public RepeatMode? RepeatMode { get; set; }
 
         [DataMember(Name = "repeatMode")]
         private string RepeatModeString
         {
             get { return RepeatMode.GetName(); }
-            set { RepeatMode = EnumHelper.Parse<RepeatMode>(value); }
+            set { RepeatMode = string.IsNullOrWhiteSpace(value) ? null : EnumHelper.Parse<RepeatMode>(value); }
         }
 
         /// <summary>

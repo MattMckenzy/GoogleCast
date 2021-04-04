@@ -28,9 +28,9 @@ namespace GoogleCast.Channels
         public event EventHandler QueueStatusChanged;
 
         /// <summary>
-        /// Gets the application identifier
+        /// Gets the default application identifier.
         /// </summary>
-        public string ApplicationId { get; } = "CC1AD845";
+        public string DefaultApplicationId { get; } = "CC1AD845";
 
         private Task<Application> GetApplicationAsync()
         {
@@ -52,7 +52,11 @@ namespace GoogleCast.Channels
         {
             try
             {
-                return (await SendAsync<MediaStatusMessage>(message, (await GetApplicationAsync()).TransportId)).Status?.FirstOrDefault();
+                Application mediaApplication = await GetApplicationAsync();
+                if (mediaApplication == null)
+                    return null;
+                else
+                    return (await SendAsync<MediaStatusMessage>(message, mediaApplication.TransportId)).Status?.FirstOrDefault();
             }
             catch (Exception)
             {
@@ -63,18 +67,28 @@ namespace GoogleCast.Channels
 
         private async Task<int[]> SendAsync(QueueGetItemIdsMessage message)
         {
-            var mediaSessionId = Status?.FirstOrDefault().MediaSessionId;
-            message.MediaSessionId = mediaSessionId ?? throw new ArgumentNullException("MediaSessionId");
-            await SendAsync<QueueItemIdsMessage>(message, (await GetApplicationAsync()).TransportId);
-            return ItemIds;
+            long? mediaSessionId = Status?.FirstOrDefault()?.MediaSessionId;
+            if (mediaSessionId != null)
+            {
+                message.MediaSessionId = mediaSessionId;
+                await SendAsync<QueueItemIdsMessage>(message, (await GetApplicationAsync()).TransportId);
+                return ItemIds;
+            }
+            else
+                return null;
         }
 
         private async Task<QueueItem[]> SendAsync(QueueGetItemsMessage message)
         {
-            var mediaSessionId = Status?.FirstOrDefault().MediaSessionId;
-            message.MediaSessionId = mediaSessionId ?? throw new ArgumentNullException("MediaSessionId");
-            await SendAsync<QueueItemsMessage>(message, (await GetApplicationAsync()).TransportId);
-            return Items;
+            long? mediaSessionId = Status?.FirstOrDefault()?.MediaSessionId; 
+            if (mediaSessionId != null)
+            {
+                message.MediaSessionId = mediaSessionId;
+                await SendAsync<QueueItemsMessage>(message, (await GetApplicationAsync()).TransportId);
+                return Items;
+            }
+            else
+                return null;
         }
 
         /// <summary>
@@ -83,7 +97,7 @@ namespace GoogleCast.Channels
         /// <returns>the status</returns>
         public Task<MediaStatus> GetStatusAsync()
         {
-            return SendAsync(new GetStatusMessage() { MediaSessionId = Status?.FirstOrDefault().MediaSessionId }, false);
+            return SendAsync(new GetStatusMessage() { MediaSessionId = Status?.FirstOrDefault()?.MediaSessionId }, false);
         }
 
         /// <summary>
@@ -110,7 +124,7 @@ namespace GoogleCast.Channels
         /// <param name="repeatMode">queue repeat mode</param>
         /// <param name="medias">media items</param>
         /// <returns>media status</returns>
-        public Task<MediaStatus> QueueLoadAsync(RepeatMode repeatMode, params MediaInformation[] medias)
+        public Task<MediaStatus> QueueLoadAsync(RepeatMode? repeatMode, params MediaInformation[] medias)
         {
             return QueueLoadAsync(repeatMode, medias.Select(mi => new QueueItem() { Media = mi }));
         }
@@ -121,7 +135,7 @@ namespace GoogleCast.Channels
         /// <param name="repeatMode">queue repeat mode</param>
         /// <param name="queueItems">items to load</param>
         /// <returns>media status</returns>
-        public Task<MediaStatus> QueueLoadAsync(RepeatMode repeatMode, params QueueItem[] queueItems)
+        public Task<MediaStatus> QueueLoadAsync(RepeatMode? repeatMode, params QueueItem[] queueItems)
         {
             return QueueLoadAsync(repeatMode, queueItems as IEnumerable<QueueItem>);
         }
@@ -132,7 +146,7 @@ namespace GoogleCast.Channels
         /// <param name="repeatMode">queue repeat mode</param>
         /// <param name="queueItems">items to load</param>
         /// <returns>media status</returns>
-        private async Task<MediaStatus> QueueLoadAsync(RepeatMode repeatMode, IEnumerable<QueueItem> queueItems)
+        private async Task<MediaStatus> QueueLoadAsync(RepeatMode? repeatMode, IEnumerable<QueueItem> queueItems)
         {
             return await SendAsync(new QueueLoadMessage()
             {
@@ -173,11 +187,12 @@ namespace GoogleCast.Channels
         /// <param name="currentItemId">item id to set currently playing media</param>
         /// <param name="shuffle">bool </param>
         /// <returns>media status</returns>
-        public async Task<MediaStatus> QueueUpdateAsync(int? currentItemId = null, bool? shuffle = null)
+        public async Task<MediaStatus> QueueUpdateAsync(int? currentItemId = null, RepeatMode? repeatMode = null, bool? shuffle = null)
         {
             return await SendAsync(new QueueUpdateMessage()
             {
                 CurrentItemId = currentItemId,
+                RepeatMode = repeatMode,
                 Shuffle = shuffle
             });
         }

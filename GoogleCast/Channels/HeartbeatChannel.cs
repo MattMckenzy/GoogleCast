@@ -24,7 +24,7 @@ namespace GoogleCast.Channels
         {
             switch (message)
             {
-                case PingMessage pingMessage:
+                case PingMessage:
                     await SendAsync(new PongMessage());
                     break;
             }

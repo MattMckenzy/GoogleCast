@@ -22,7 +22,7 @@ namespace GoogleCast.Models.Media
         public StreamType StreamType { get; set; } = StreamType.Buffered;
 
         [DataMember(Name = "streamType")]
-        private string StreamTypeString
+        public string StreamTypeString
         {
             get { return StreamType.GetName(); }
             set { StreamType = EnumHelper.Parse<StreamType>(value); }
@@ -38,7 +38,7 @@ namespace GoogleCast.Models.Media
         /// Gets or sets the media metadata object
         /// </summary>
         [DataMember(Name = "metadata", EmitDefaultValue = false)]
-        public GenericMediaMetadata Metadata { get; set; }
+        public MediaMetadata Metadata { get; set; }
 
         /// <summary>
         /// Gets or sets the duration of the currently playing stream in seconds
