@@ -16,5 +16,12 @@ namespace GoogleCast.Messages.Media
         /// <remarks>must not be null or empty</remarks>
         [DataMember(Name = "items")]
         public IEnumerable<QueueItem> Items { get; set; }
+
+        /// <summary>
+        /// Gets or sets the ID of the item that will be located immediately after the inserted list. 
+        /// If the ID is not found or it is not provided, the list will be appended at the end of the existing list.
+        /// </summary>
+        [DataMember(Name = "insertBefore")]
+        public int? InsertBefore { get; set; }
     }
 }

@@ -80,7 +80,16 @@ namespace GoogleCast.Models.Media
         /// Gets or sets the repeat mode
         /// </summary>
         [IgnoreDataMember]
-        public RepeatMode? RepeatMode { get { return string.IsNullOrWhiteSpace(RepeatModeString) ? null : Enum.Parse<RepeatMode>(RepeatModeString); } }
+        public RepeatMode? RepeatMode 
+        { 
+            get 
+            {
+                if ((RepeatModeString ?? string.Empty).Contains("_"))
+                    return Enum.Parse<RepeatMode>(RepeatModeString.ToCamelCase());
+                else
+                    return string.IsNullOrWhiteSpace(RepeatModeString) ? null : Enum.Parse<RepeatMode>(RepeatModeString); 
+            } 
+        }
 
         /// <summary>
         /// Gets or sets the queue items

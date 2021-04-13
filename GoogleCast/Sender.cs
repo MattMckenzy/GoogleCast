@@ -196,8 +196,9 @@ namespace GoogleCast
                         }
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    Debug.WriteLine($"{Receiver?.FriendlyName ?? "N/A"} disposed");
                     CancellationTokenSource = null;
                     Dispose();
                 }

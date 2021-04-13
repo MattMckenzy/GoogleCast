@@ -56,7 +56,7 @@ namespace GoogleCast.Channels
         /// </summary>
         /// <param name="queueItems">items to insert</param>
         /// <returns>media status</returns>
-        Task<MediaStatus> QueueInsertAsync(QueueItem[] queueItems);
+        Task<MediaStatus> QueueInsertAsync(QueueItem[] queueItems, int? insertBefore = null);
 
         /// <summary>
         /// Removes queue items from the queue

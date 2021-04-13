@@ -160,11 +160,12 @@ namespace GoogleCast.Channels
         /// </summary>
         /// <param name="queueItems">items to insert</param>
         /// <returns>media status</returns>
-        public async Task<MediaStatus> QueueInsertAsync(QueueItem[] queueItems)
+        public async Task<MediaStatus> QueueInsertAsync(QueueItem[] queueItems, int? insertBefore = null)
         {
             return await SendAsync(new QueueInsertMessage()
             {
-                Items = queueItems
+                Items = queueItems,
+                InsertBefore = insertBefore
             });
         }
 
