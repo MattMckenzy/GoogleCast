@@ -188,13 +188,14 @@ namespace GoogleCast.Channels
         /// <param name="currentItemId">item id to set currently playing media</param>
         /// <param name="shuffle">bool </param>
         /// <returns>media status</returns>
-        public async Task<MediaStatus> QueueUpdateAsync(int? currentItemId = null, RepeatMode? repeatMode = null, bool? shuffle = null)
+        public async Task<MediaStatus> QueueUpdateAsync(int? currentItemId = null, RepeatMode? repeatMode = null, bool? shuffle = null, IEnumerable<QueueItem> items = null)
         {
             return await SendAsync(new QueueUpdateMessage()
             {
                 CurrentItemId = currentItemId,
                 RepeatMode = repeatMode,
-                Shuffle = shuffle
+                Shuffle = shuffle,
+                Items = items
             });
         }
 

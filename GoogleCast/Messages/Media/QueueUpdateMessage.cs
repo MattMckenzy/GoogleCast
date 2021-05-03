@@ -1,4 +1,5 @@
 ﻿using GoogleCast.Models.Media;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace GoogleCast.Messages.Media
@@ -32,6 +33,12 @@ namespace GoogleCast.Messages.Media
         /// Gets or sets the shuffle state
         /// </summary>        
         [DataMember(Name = "shuffle")]
-        public bool? Shuffle { get; set; }        
+        public bool? Shuffle { get; set; }
+
+        /// <summary>
+        /// Gets or sets the list of queue items to update.
+        /// </summary>        
+        [DataMember(Name = "items")]
+        public IEnumerable<QueueItem> Items { get; set; }
     }
 }

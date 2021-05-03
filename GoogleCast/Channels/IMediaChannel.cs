@@ -71,7 +71,7 @@ namespace GoogleCast.Channels
         /// <param name="currentItemId">item id to set currently playing media</param>
         /// <param name="shuffle">bool </param>
         /// <returns>media status</returns>
-        Task<MediaStatus> QueueUpdateAsync(int? currentItemId = null, RepeatMode? repeatMode = null, bool? shuffle = null);
+        Task<MediaStatus> QueueUpdateAsync(int? currentItemId = null, RepeatMode? repeatMode = null, bool? shuffle = null, IEnumerable<QueueItem> items = null);
 
         /// <summary>
         /// Reorders queue items in the queue
